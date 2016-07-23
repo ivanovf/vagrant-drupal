@@ -1,0 +1,35 @@
+vagrantfile:
+  vm:
+    synced_folder:
+      vfs_caracoltv:
+        source: #url local
+        target: /var/www/caracoltv
+        sync_type: nfs
+        rsync:
+          args:
+            - '--verbose'
+            - '--archive'
+            - '-z'
+          exclude:
+            - .vagrant/
+            - .git/
+          auto: 'true'
+        owner: www-data
+        group: www-data
+nginx_hosts:
+  host_ctv:
+    listen: "*:80" # default: "80 default_server"
+    server_name: "local.caracoltv.com" # default: N/A
+    root: "/var/www/caracoltv" # default: N/A
+    index: "index.html index.htm index.php" # default: "index.html index.htm"
+    # Properties that are only added if defined:
+    access_log: "/var/log/nginx/caracoltv.access.log"
+    error_log: "/var/log/nginx/caracoltv.error.log"
+    extra_parameters: "" # Can be used to add extra config blocks (multiline).
+
+mysql_databases:
+  bd_ctv:
+    name: caracoltv
+    collation: utf8_general_ci
+    encoding: utf8
+    replicate: 1

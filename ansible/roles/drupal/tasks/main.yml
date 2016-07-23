@@ -1,0 +1,11 @@
+---
+- name: "Create settings folder"
+  file: path=/home/vagrant/files state=directory mode=0755
+
+- name: "Create folder by site"
+  file: path=/home/vagrant/files/{{ item.value.name }} state=directory mode=0755
+  with_dict: mysql_databases
+
+- name: "Create settings.php files"
+  template: src=settings.j2 dest=/home/vagrant/files/{{ item.value.name }}/settings.php mode=0775
+  with_dict: mysql_databases

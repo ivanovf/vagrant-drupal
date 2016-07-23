@@ -1,0 +1,52 @@
+---
+- name: Download Epel Repo
+  get_url: url=https://dl.fedoraproject.org/pub/epel/epel-release-latest-6.noarch.rpm dest=/tmp/repel.rpm mode=0777
+
+- name: Install Epel Repo
+  yum: name=/tmp/repel.rpm state=present
+
+- name: Install vim
+  yum: name=vim state=latest
+
+- name: Install htop
+  yum: name=htop state=latest
+
+- name: Install pv
+  yum: name=pv state=latest
+
+- name: Install Git
+  yum: name=git state=latest
+
+- name: Install the libselinux-python package
+  yum: name=libselinux-python state=installed
+
+- name: Install unzip
+  yum: name=unzip state=latest
+
+- name: Create the Github SSH public key file
+  copy: src="~/.ssh/id_rsa.pub"
+        dest="/home/vagrant/.ssh/id_rsa.pub"
+        mode=0644
+        owner=vagrant
+        group=vagrant
+
+- name: Create the Github SSH private key file
+  copy: src="~/.ssh/id_rsa"
+        dest="/home/vagrant/.ssh/id_rsa"
+        mode=0600
+        owner=vagrant
+        group=vagrant
+
+- copy: src="{{ playbook_dir }}/../dot/.bash_aliases"
+        dest="/home/vagrant/"
+        mode=0644
+- copy: src="{{ playbook_dir }}/../dot/.bash_git"
+        dest="/home/vagrant/"
+        mode=0644
+- copy: src="{{ playbook_dir }}/../dot/.bash_profile"
+        dest="/home/vagrant/"
+        mode=0644
+- copy: src="{{ playbook_dir }}/../dot/.bashrc"
+        dest="/home/vagrant/"
+        mode=0644
+        force=yes

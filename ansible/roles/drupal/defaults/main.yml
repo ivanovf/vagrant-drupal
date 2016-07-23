@@ -1,0 +1,28 @@
+---
+# defaults file for drupal-settings
+
+drupal_settings_sites:
+  default:
+    conf: {}
+    databases:
+      default:
+        default:
+          driver: 'mysql'
+          database: 'caracoltv'
+          username: 'root'
+          password: 'root'
+          host: 'localhost'
+    php_ini: {}
+    hash_salt: "{{ lookup('password', '/tmp/drupal-default-hash') }}"
+    fast_404: false
+
+drupal_settings_default:
+  conf:
+    404_fast_paths_exclude: '/\/(?:styles)\//'
+    404_fast_paths: '/\.(?:txt|png|gif|jpe?g|css|js|ico|swf|flv|cgi|bat|pl|dll|exe|asp)$/i'
+  php_ini:
+    session.gc_probability: 1
+    session.gc_divisor: 100
+    session.gc_maxlifetime: 200000
+    session.cookie_lifetime: 2000000
+  includes: []

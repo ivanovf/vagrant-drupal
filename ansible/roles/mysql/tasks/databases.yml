@@ -1,0 +1,8 @@
+---
+- name: Ensure MySQL databases are present.
+  mysql_db:
+    name: "{{ item.value.name }}"
+    collation: "{{ item.value.collation | default('utf8_general_ci') }}"
+    encoding: "{{ item.value.encoding | default('utf8') }}"
+    state: present
+  with_dict: mysql_databases

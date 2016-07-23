@@ -1,0 +1,54 @@
+vagrantfile:
+  target: local
+  vm:
+    box: puphpet/centos65-x64
+    box_url: puphpet/centos65-x64
+    boot_timeout: 1200
+    hostname: local.dev.ansible
+    memory: '2048'
+    cpus: '2'
+    chosen_provider: virtualbox
+    network:
+      private_network: 10.10.10.30
+      bridge_network:
+        install: 1
+        interface_name: 'wlp2s0'
+      forwarded_port:
+        vflnp_4k4kt4miuuh6:
+          host: '7535'
+          guest: '22'
+        vflnp_mysql:
+          host: '3306'
+          guest: '3306'
+    post_up_message: ''
+    provider:
+      virtualbox:
+        modifyvm:
+          natdnshostresolver1: 'on'
+        showgui: '0'
+      vmware:
+        numvcpus: 1
+      parallels:
+        cpus: 1
+    synced_folder: {  }
+    usable_port_range:
+      start: 10200
+      stop: 10500
+  ssh:
+    host: null
+    port: null
+    private_key_path: '~/.ssh/id_rsa'
+    username: vagrant
+    password: null
+    insert_key: true
+    guest_port: null
+    keep_alive: false
+    forward_agent: true
+    forward_x11: false
+    shell: 'bash -l'
+  vagrant:
+    host: detect
+
+nginx_hosts: {  }
+
+mysql_databases: {  }

@@ -1,0 +1,35 @@
+vagrantfile:
+  vm:
+    synced_folder:
+      vfs_noticias:
+        source: /home/ivan/Documentos/sitios/noticias
+        target: /var/www/noticias
+        sync_type: nfs
+        rsync:
+          args:
+            - '--verbose'
+            - '--archive'
+            - '-z'
+          exclude:
+            - .vagrant/
+            - .git/
+          auto: 'true'
+        owner: vagrant
+        group: vagrant
+nginx_hosts:
+  host_noticias:
+    listen: "*:80" # default: "80 default_server"
+    server_name: "local.noticias.com" # default: N/A
+    root: "/var/www/noticias" # default: N/A
+    index: "index.html index.htm index.php" # default: "index.html index.htm"
+    # Properties that are only added if defined:
+    access_log: "/var/log/nginx/noticias.access.log"
+    error_log: "/var/log/nginx/noticias.error.log"
+    extra_parameters: "" # Can be used to add extra config blocks (multiline).
+
+mysql_databases:
+  bd_noticias:
+    name: noticias
+    collation: utf8_general_ci
+    encoding: utf8
+    replicate: 1

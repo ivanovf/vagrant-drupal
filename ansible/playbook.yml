@@ -1,0 +1,18 @@
+---
+- hosts: all
+  sudo: true
+
+  vars_files:
+     - ../config-custom.yaml
+  roles:
+    - adds_on
+    - nginx
+    - mysql
+    - repo_remi
+    - php_fpm
+    - composer
+    - drush
+    - drupal
+    - xdebug
+    - java
+    - solr

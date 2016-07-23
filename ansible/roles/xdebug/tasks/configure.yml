@@ -1,0 +1,11 @@
+---
+- name: Copy xdebug ini into main extension config folder.
+  template:
+    src: xdebug.ini.j2
+    dest: "{{ php_extension_conf_path }}/xdebug.ini"
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - restart webserver
+    - restart php-fpm
